@@ -7,17 +7,23 @@
 </head>
 <body>
 
-<div id="navbar-top" class="container">
+<div id="navbar-top">
     <button id="input-nav" onclick="location.href = inputUrl;">Add new Data!</button>
-    <button id="delete-button" onclick="deleteProductRow()">Delete selected Rows</button>
-    <button id="edit-button" onclick="editSelectedProduct()">Edit selected Row</button>
+    <div id="action-buttons" class="container">
+        <select id="search-list" onchange="updateSearchDiv()">
+            <option value="null">Search by:</option>
+            <option th:each="option : ${searchOptions}" th:value="${option}" th:text="${option}"/>
+        </select>
+        <button id="delete-button" onclick="deleteProductRow()">Delete selected Rows</button>
+        <button id="edit-button" onclick="editSelectedProduct()">Edit selected Row</button>
+    </div>
 </div>
 
 <div id="product-table" class="container">
     <table>
         <tr>
             <th><input type="checkbox" onclick="toggle(this)"></th>
-            <th>Mfr</th>
+            <th>Manufacturer</th>
             <th>Type Name</th>
             <th>Type ID</th>
             <th>Style Name</th>

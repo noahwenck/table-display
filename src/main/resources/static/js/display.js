@@ -1,4 +1,20 @@
 const inputUrl = "http://localhost:8080/input"
+const displayUrl = "http://localhost:8080"
+
+document.addEventListener("DOMContentLoaded", function() {
+    if (location.href !== displayUrl || location.href !== displayUrl.substring(0, length-1)) {
+        // Add a button to return home
+        let returnButton = document.createElement("button");
+        returnButton.setAttribute("id", "return-button");
+        returnButton.setAttribute("onclick", "location.href = displayUrl");
+        returnButton.textContent = "Return home!";
+
+        document.getElementById("navbar-top").insertBefore(
+            returnButton,
+            document.getElementById("action-buttons")
+        );
+    }
+})
 
 /**
  * Deletes the selected rows of products
@@ -15,7 +31,7 @@ async function deleteProductRow() {
         }
     })
 
-    const response = await fetch("http://localhost:8080/delete/" + productIdsToDelete, {method: 'DELETE'})
+    const response = await fetch(displayUrl + "delete/" + productIdsToDelete, {method: 'DELETE'})
 
     if (response.ok) {
         console.log("Successfully deleted product(s).")
@@ -58,4 +74,65 @@ function toggle(source) {
         if (checkboxes[i] !== source)
             checkboxes[i].checked = source.checked;
     }
+}
+
+/**
+ * IF an option is selected to search by, add a text input to search for a specific value.
+ *
+ * Modified from another of my projects: https://github.com/noahwenck/NodaApp/blob/master/src/main/resources/static/js/home.js#L62-L96
+ */
+function updateSearchDiv() {
+    const option = document.getElementById('search-list').value;
+
+    if (document.getElementById('search-param') != null) {
+        const searchList = document.getElementById('search-list');
+        if (searchList.value === "null") {
+            // Remove added search inputs if back to default
+            document.getElementById('action-buttons').removeChild(
+                document.getElementById('search-param')
+            );
+            document.getElementById('action-buttons').removeChild(
+                document.getElementById('search-button')
+            );
+           return;
+        } else {
+            // Do nothing if user clicks back on previous option
+            return;
+        }
+    }
+
+    let searchInput = document.createElement("input");
+    searchInput.setAttribute("id", "search-param");
+    searchInput.setAttribute("placeholder", "Enter the " + option + " here")
+
+    document.getElementById("action-buttons").insertBefore(
+        searchInput,
+        document.getElementById("delete-button")
+    );
+
+    // Add a search button
+    let searchButton = document.createElement("button");
+    searchButton.setAttribute("id", "search-button");
+    searchButton.setAttribute("onclick", "search()");
+    searchButton.textContent = "Search!";
+
+    document.getElementById("action-buttons").insertBefore(
+        searchButton,
+        document.getElementById("delete-button")
+    );
+}
+
+/**
+ * Sends a request to backend to get search matches
+ */
+function search() {
+    const option = document.getElementById('search-list').value.toLowerCase();
+    const searchParam = document.getElementById('search-param').value;
+
+    if (searchParam === "") {
+        alert("Please enter a " + option + " to search")
+        return;
+    }
+
+    location.href = displayUrl + "/" + option + "/" + searchParam;
 }
