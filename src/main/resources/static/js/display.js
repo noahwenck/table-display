@@ -6,6 +6,7 @@ const inputUrl = "http://localhost:8080/input"
 async function deleteProductRow() {
     console.log("Attempting to delete product(s)")
 
+    // Gets all product Ids of selected products
     const checkedCheckboxes = document.querySelectorAll("input[type='checkbox']:checked")
     const productIdsToDelete = []
     checkedCheckboxes.forEach(box => {
@@ -31,7 +32,7 @@ async function deleteProductRow() {
 function editSelectedProduct() {
     const checkedCheckboxes = document.querySelectorAll("input[type='checkbox']:checked")
 
-    // Validation since we are using the same checkboxes as we do with deletions
+    // Validate to only allow one selected checkbox since we are using the same checkbox system as we do with deletions
     if (checkedCheckboxes.length === 0) {
         alert("You must select a product to edit it.")
         return

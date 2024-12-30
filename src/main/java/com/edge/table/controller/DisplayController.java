@@ -23,8 +23,12 @@ public class DisplayController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/")
+    /**
+     * Attaches any existing products to our model, and redirects the user to the displayed table.
+     */
+    @GetMapping
     public String display(Model model) {
+        // If no data exists, add sample data
         if (productRepository.findAll().isEmpty()) {
             injectInitData();
         }
@@ -44,6 +48,11 @@ public class DisplayController {
         ));
     }
 
+    /**
+     * Deletes products selected by the user. Can delete multiple at a time
+     *
+     * @param productIdsToDelete List of products Ids to mark the products to delete
+     */
     @DeleteMapping("/delete/{productIdsToDelete}")
     public String deleteProductById(@PathVariable List<Integer> productIdsToDelete) {
         for (int productId : productIdsToDelete) {

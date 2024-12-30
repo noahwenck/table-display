@@ -60,7 +60,7 @@ public class Product {
         this.id = id;
     }
 
-    @Column(name = "MFR", nullable = false)
+    @Column(name = "MFR")
     public String getManufacturer() {
         return manufacturer;
     }
@@ -69,12 +69,12 @@ public class Product {
         this.manufacturer = manufacturer;
     }
 
-    @Column(name = "TYPE_NAME", nullable = false)
+    @Column(name = "TYPE_NAME")
     public String getTypeName() {
         return typeName;
     }
 
-    @Column(name = "TYPE_NAME", nullable = false)
+    @Column(name = "TYPE_NAME")
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
@@ -83,7 +83,7 @@ public class Product {
         return typeId;
     }
 
-    @Column(name  = "TYPE_ID", nullable = false)
+    @Column(name  = "TYPE_ID")
     public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
@@ -92,7 +92,7 @@ public class Product {
         return styleName;
     }
 
-    @Column(name = "STYLE_NAME", nullable = false)
+    @Column(name = "STYLE_NAME")
     public void setStyleName(String styleName) {
         this.styleName = styleName;
     }

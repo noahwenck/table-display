@@ -12,4 +12,5 @@ Docker Desktop is required for setup. I haven't ran this project from scratch, s
 
 To instantiate the project's database run: `docker compose up`.
 
-Then run the application through your IDE, or by running `DisplayTableApplication`.
+After the database is setup, run the application through your IDE, or by running `DisplayTableApplication`. 
+Once running, navigate to [http://localhost:8080/](http://localhost:8080/).

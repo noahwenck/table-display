@@ -6,6 +6,7 @@ displayUrl = "http://localhost:8080/"
 async function addOrUpdateProduct(edit) {
     console.log("Attempting to post new product")
 
+    // Create a JSON of a product with the new data
     const newProduct = JSON.stringify({
         "manufacturer": document.getElementById("Manufacturer-input").value,
         "typeName": document.getElementById("TypeName-input").value,

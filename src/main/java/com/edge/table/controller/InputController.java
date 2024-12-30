@@ -22,13 +22,22 @@ public class InputController {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Appends fields (for frontend ids) and redirects user to input page
+     */
     @GetMapping
     public String navigateToInputPage(Model model) {
         model.addAttribute("productFields",
-                List.of("Manufacturer", "Type-Name", "Type-Id", "Style-Name", "Style-Id", "Color-Number", "Color-Name", "Size"));
+                List.of("Manufacturer", "TypeName", "TypeId", "StyleName", "StyleId", "ColorNumber", "ColorName", "Size"));
         return "input";
     }
 
+    /**
+     * Creates a new product, or edits and existing one, with the data submitted from the input page
+     *
+     * @param productId product Id if editing and existing product, -1 otherwise
+     * @param newProduct product with edited/newly added values
+     */
     @PostMapping("/AddUpdate/{productId}")
     public String addOrUpdateProduct(@PathVariable int productId,
                                      @RequestBody Product newProduct) {
@@ -44,11 +53,21 @@ public class InputController {
         return "input";
     }
 
+    /**
+     * Appends the existing product to edit if it exists. Redirect to edit page.
+     *
+     * @param productIdToEdit product Id of the product to edit
+     */
     @GetMapping("/edit/{productIdToEdit}")
     public String editExistingProduct(@PathVariable int productIdToEdit,
                                       Model model) {
         final Optional<Product> productToEdit = productRepository.findById(productIdToEdit);
-        productToEdit.ifPresent(product -> model.addAttribute("productToEdit", product));
-        return "input";
+        if (productToEdit.isPresent()) {
+            model.addAttribute("productToEdit", productToEdit.get());
+            return "input";
+        } else {
+            // No such product exists, send them to display page
+            return "redirect:/";
+        }
     }
 }
