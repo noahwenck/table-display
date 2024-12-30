@@ -31,7 +31,7 @@ async function deleteProductRow() {
         }
     })
 
-    const response = await fetch(displayUrl + "delete/" + productIdsToDelete, {method: 'DELETE'})
+    const response = await fetch(displayUrl + "/" + "delete/" + productIdsToDelete, {method: 'DELETE'})
 
     if (response.ok) {
         console.log("Successfully deleted product(s).")

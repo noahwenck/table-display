@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,19 +56,19 @@ public class DisplayController {
     }
 
     /**
-     * Deletes products selected by the user. Can delete multiple at a time
+     * Deletes products selected by the user. Can delete multiple at a time.
+     *
+     * NOTE: Since we inject sample data when db is empty, you can never have an empty database (but you can have an empty table via searching)
      *
      * @param productIdsToDelete List of products Ids to mark the products to delete
      */
     @DeleteMapping("/delete/{productIdsToDelete}")
-    public String deleteProductById(@PathVariable List<Integer> productIdsToDelete) {
+    @ResponseBody
+    public void deleteProductById(@PathVariable List<Integer> productIdsToDelete) {
         for (int productId : productIdsToDelete) {
             Optional<Product> productToDelete = productRepository.findById(productId);
             productToDelete.ifPresent(productRepository::delete);
         }
-
-        // Note: this won't allow you to EVER have an empty database
-        return "redirect:/";
     }
 
     // If I knew how to parse a field from a string I could reduce the # of these methods from 8 to 1, but not sure how to or if its even possible.

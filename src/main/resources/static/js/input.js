@@ -1,10 +1,17 @@
-displayUrl = "http://localhost:8080/"
+const displayUrl = "http://localhost:8080/"
 
 /**
  * Makes a request to create a new product, or edit and existing one, with the inputted parameters
  */
 async function addOrUpdateProduct(edit) {
     console.log("Attempting to post new product")
+
+    if (isNaN(parseInt(document.getElementById("TypeId-input").value)) ||
+        isNaN(parseInt(document.getElementById("ColorNumber-input").value))) {
+        alert("Type Id and Color Number must be integers.")
+        return;
+    }
+
 
     // Create a JSON of a product with the new data
     const newProduct = JSON.stringify({
