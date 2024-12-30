@@ -1,0 +1,53 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<script th:src="@{/js/input.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Table - Input</title>
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+</head>
+<body>
+
+<div id="navbar-top">
+    <button id="input-nav" onclick="location.href = displayUrl;">Return to Display!</button>
+</div>
+
+<!-- Wish I could have combined the following two divs, but doing it this way was quicker than figuring out a way to reduce code -->
+<div id="input-div" th:if="not ${productToEdit}">
+    <div th:each="field : ${productFields}">
+        <label th:for="${field} + '-input'" th:text="${field} + ':'"></label>
+        <input th:id="${field} + '-input'" th:placeholder="'Enter the ' + ${field} + ' here'">
+    </div>
+    <button id="submit-button" onclick="addOrUpdateProduct(false)">Submit new Product!</button>
+</div>
+
+<div id="edit-div" th:if="${productToEdit}">
+    <label for="Manufacturer-input">Manufacturer:</label>
+    <input id="Manufacturer-input" placeholder="Enter the Manufacturer here" th:value="${productToEdit.manufacturer}">
+
+    <label for="TypeName-input">Type Name:</label>
+    <input id="TypeName-input" placeholder="Enter the Type Name here" th:value="${productToEdit.typeName}">
+
+    <label for="TypeId-input">Type Id:</label>
+    <input id="TypeId-input" placeholder="Enter the Type Id here" th:value="${productToEdit.typeId}">
+
+    <label for="StyleName-input">Style Name:</label>
+    <input id="StyleName-input" placeholder="Enter the Style Name here" th:value="${productToEdit.styleName}">
+
+    <label for="StyleId-input">Style Id:</label>
+    <input id="StyleId-input" placeholder="Enter the Style Id here" th:value="${productToEdit.styleId}">
+
+    <label for="ColorNumber-input">Color Number:</label>
+    <input id="ColorNumber-input" placeholder="Enter the Color Number here" th:value="${productToEdit.colorNumber}">
+
+    <label for="ColorName-input">Color Name:</label>
+    <input id="ColorName-input" placeholder="Enter the Color Name here" th:value="${productToEdit.colorName}">
+
+    <label for="Size-input">Size:</label>
+    <input id="Size-input" placeholder="Enter the Size here" th:value="${productToEdit.size}">
+
+    <button id="edit-button" onclick="addOrUpdateProduct(true)">Submit edited Product!</button>
+    <button id="product-id" th:value="${productToEdit.id}" hidden></button>
+</div>
+
+</body>
+</html>
