@@ -2,6 +2,8 @@
 
 A simple display of a database table with full CRUD operations.
 
+![](./table.jpg)
+
 ## Building
 Build via Gradle: `./gradlew build`.
 
